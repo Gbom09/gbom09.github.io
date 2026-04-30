@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over ons – Team Funqtion</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(246, 135, 18, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(246, 135, 18, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(246, 135, 18, 0.06) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 70%, #0f1419 100%);
+      background-attachment: fixed;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -5;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(246, 135, 18, 0.6);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+      box-shadow: 0 0 6px rgba(246, 135, 18, 0.4);
+    }
+
+    .particle:nth-child(even) {
+      background: rgba(255, 107, 53, 0.5);
+      animation-duration: 10s;
+      animation-direction: reverse;
+    }
+
+    .particle:nth-child(3n) {
+      background: rgba(255, 255, 255, 0.3);
+      animation-duration: 12s;
+      width: 2px;
+      height: 2px;
+    }
+
+    @keyframes float {
+      0%, 100% { 
+        transform: translateY(0px) translateX(0px) rotate(0deg); 
+        opacity: 0.3; 
+      }
+      25% { 
+        transform: translateY(-30px) translateX(15px) rotate(90deg); 
+        opacity: 0.7; 
+      }
+      50% { 
+        transform: translateY(-60px) translateX(-10px) rotate(180deg); 
+        opacity: 1; 
+      }
+      75% { 
+        transform: translateY(-30px) translateX(-20px) rotate(270deg); 
+        opacity: 0.6; 
+      }
+    }
+
+    /* Additional animated elements */
+    .bg-animation::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        conic-gradient(from 0deg at 70% 30%, transparent 0deg, rgba(246, 135, 18, 0.02) 60deg, transparent 120deg),
+        conic-gradient(from 180deg at 30% 70%, transparent 0deg, rgba(255, 107, 53, 0.02) 60deg, transparent 120deg);
+      animation: rotate 60s linear infinite;
+    }
+
+    .bg-animation::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 10% 10%, rgba(246, 135, 18, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 90%, rgba(255, 107, 53, 0.03) 0%, transparent 50%);
+      animation: pulse 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 0.8; transform: scale(1.1); }
+    }
+
+    /* Top controls */
+    .logo-top-right {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 90px;
+      height: auto;
+      z-index: 1000;
+      filter: drop-shadow(0 0 10px rgba(246, 135, 18, 0.5));
+      transition: all 0.3s ease;
+    }
+
+    .logo-top-right:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 15px rgba(246, 135, 18, 0.8));
+    }
+
+    .control-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+
+    .control-btn {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      border: 2px solid rgba(246, 135, 18, 0.6);
+      border-radius: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .control-btn:hover {
+      background: rgba(246, 135, 18, 0.2);
+      border-color: rgba(246, 135, 18, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(246, 135, 18, 0.3);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: -280px;
+      top: 0;
+      width: 260px;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      padding: 80px 20px 20px;
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+      border-right: 1px solid rgba(246, 135, 18, 0.3);
+    }
+
+    .sidebar.active {
+      left: 0;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 16px 20px;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(246, 135, 18, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .sidebar a:hover::before {
+      left: 100%;
+    }
+
+    .sidebar a:hover {
+      background: rgba(246, 135, 18, 0.15);
+      transform: translateX(5px);
+    }
+
+    .sidebar a.active-page {
+      background: linear-gradient(135deg, rgba(246, 135, 18, 0.8), rgba(246, 135, 18, 0.6));
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* Main content */
+    .container {
+      max-width: 1000px;
+      margin: 140px auto 80px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(246, 135, 18, 0.2);
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #f68712, transparent);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, #f68712, #ff6b35, #f68712);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(246, 135, 18, 0.3));
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .intro-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 50px;
+      text-align: center;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    /* DJ Gallery Section */
+    .dj-samen-gallery {
+      text-align: center;
+      margin: 50px auto;
+      max-width: 700px;
+      position: relative;
+    }
+
+    .gallery-container {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(246, 135, 18, 0.2);
+      transition: all 0.4s ease;
+    }
+
+    .gallery-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(246, 135, 18, 0.4);
+    }
+
+    .gallery-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(246, 135, 18, 0.1), transparent, rgba(246, 135, 18, 0.1));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #djSamenFoto {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transition: opacity 1s ease-in-out;
+      display: block;
+    }
+
+    /* DJ Sections */
+    .dj-section {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+      align-items: center;
+      gap: 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dj-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(246, 135, 18, 0.05), transparent);
+      animation: rotate 30s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .dj-section:hover {
+      background: rgba(246, 135, 18, 0.05);
+      border-color: rgba(246, 135, 18, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .dj-section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .dj-section img {
+      width: 280px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid rgba(246, 135, 18, 0.6);
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(246, 135, 18, 0.3);
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .dj-section img:hover {
+      transform: scale(1.05);
+      border-color: rgba(246, 135, 18, 1);
+      box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(246, 135, 18, 0.5);
+    }
+
+    .dj-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .dj-text h2 {
+      font-size: 2rem;
+      color: #f68712;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .dj-text p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .control-buttons {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .control-btn {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+      
+      .logo-top-right {
+        width: 70px;
+        top: 15px;
+        right: 15px;
+      }
+      
+      .container {
+        margin: 120px 20px 60px;
+        padding: 30px 20px;
+      }
+      
+      .dj-section {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 25px;
+        padding: 25px 15px;
+      }
+      
+      .dj-section img {
+        width: 220px;
+        height: 220px;
+      }
+      
+      .dj-text {
+        min-width: auto;
+      }
+      
+      .sidebar {
+        width: 240px;
+        left: -260px;
+      }
+    }
+
+    /* Fade in animation */
+    .fade-in {
+      animation: fadeIn 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: rgba(246, 135, 18, 0.2);
+      z-index: 1001;
+    }
+
+    .scroll-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #f68712, #ff6b35);
+      width: 0%;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body class="fade-in" style="opacity: 0; transition: opacity 1s ease-in;">
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-progress" id="scrollProgress"></div>
+  </div>
+
+  <!-- Background animation -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
+  <!-- Control buttons -->
+  <div class="control-buttons">
+    <button class="control-btn" onclick="toggleSidebar()">
+      <span>☰</span> Menu
+    </button>
+    <button class="control-btn" onclick="toggleParticles()" title="Animaties aan/uit">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v6m0 10v6m11-7h-6m-10 0H1m15.5-6.5l-4.24 4.24M6.74 17.26L2.5 21.5m15-15l-4.24 4.24M6.74 6.74L2.5 2.5"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Logo -->
+  <img src="../images/logo.svg" alt="Logo" class="logo-top-right">
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <a href="../index.html">Home</a>
+    <a href="over.html" class="active-page">Over ons</a>
+    <a href="feesten.html">Feesten</a>
+    <a href="boeken.html">Boeken</a>
+    <a href="bieden.html">Wat wij bieden</a>
+    <a href="tip.html">Muziek aanrader</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="container">
+    <h1>Over ons</h1>
+
+    <div class="intro-text">
+      <p>
+        Wij zijn Team Funqtion – twee gepassioneerde DJ's met één missie: elk feest onvergetelijk maken. Onze sets zijn energiek, creatief en afgestemd op het publiek. Samen vormen we een dynamisch duo dat perfect op elkaar is ingespeeld, zowel op het podium als daarbuiten.
+      </p>
+    </div>
+
+    <div class="dj-samen-gallery">
+      <div class="gallery-container">
+        <img id="djSamenFoto" src="../images/picsdjsamen/foto1.jpg" alt="DJ's samen">
+      </div>
+    </div>
+
+    <div class="dj-section">
+      <img src="../images/dj1.jpg" alt="DJ 1">
+      <div class="dj-text">
+        <h2>Gijs van Doren</h2>
+        <p>Gijs is de creatieve kracht achter onze sound. Met gevoel voor sfeer en opbouw weet hij elk publiek te raken. </p>
+        <p>Zijn favoriete stijl is een mix van Hardstyle en Hardcore, waarbij hij het publiek telkens opnieuw weet te verrassen.</p>
+      </div>
+    </div>
+
+    <div class="dj-section">
+      <img src="../images/dj2.jpg" alt="DJ 2">
+      <div class="dj-text">
+        <h2>Coen Peels</h2>
+        <p>Coen brengt energie en drive in elke set. Zijn liefde voor muziek en feesten is aanstekelijk. Samen met Gijs vormt hij het perfecte duo dat elk feest onvergetelijk maakt.</p>
+        <p>Zijn specialiteit is het mixen van elke genre, waardoor geen dansvloer leeg blijft.</p>
+    </div>
+  </div>
+
+  <script>
+    // Initialize page
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = '1';
+      initializePhotoCarousel();
+      createParticles();
+    });
+
+    // Sidebar toggle functionality
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
+    }
+
+    // Enhanced particle animation toggle
+    function toggleParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      if (bgAnimation.style.display === 'none') {
+        bgAnimation.style.display = 'block';
+        bgAnimation.style.opacity = '1';
+      } else {
+        bgAnimation.style.display = 'none';
+      }
+    }
+
+    // Background particles with enhanced variety
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 60;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+        
+        // Add some variety to particle sizes and colors
+        if (Math.random() > 0.7) {
+          particle.style.width = '6px';
+          particle.style.height = '6px';
+          particle.style.background = 'rgba(255, 255, 255, 0.4)';
+        }
+        
+        bgAnimation.appendChild(particle);
+      }
+    }
+
+    // Photo carousel functionality
+    function initializePhotoCarousel() {
+      const fotoPad = '../images/picsdjsamen/';
+      const fotosSamen = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
+      let huidigeIndex = 0;
+      const imgElement = document.getElementById('djSamenFoto');
+      
+      if (imgElement) {
+        setInterval(() => {
+          const nextIndex = (huidigeIndex + 1) % fotosSamen.length;
+          imgElement.style.opacity = '0';
+          setTimeout(() => {
+            imgElement.src = fotoPad + fotosSamen[nextIndex];
+            imgElement.style.opacity = '1';
+            huidigeIndex = nextIndex;
+          }, 500);
+        }, 4000);
+      }
+    }
+
+    // Scroll progress indicator
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+      const sidebar = document.getElementById('sidebar');
+      const menuBtn = document.querySelector('[onclick="toggleSidebar()"]');
+      
+      if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    // Close sidebar when clicking on a link (for mobile)
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('sidebar').classList.remove('active');
+      });
+    });
+
+    // Enhanced hover effects for DJ images
+    document.querySelectorAll('.dj-section img').forEach(img => {
+      img.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.08) rotate(2deg)';
+      });
+      
+      img.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotate(0deg)';
+      });
+    });
+
+    // Intersection observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.dj-section, .dj-samen-gallery').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'all 0.8s ease';
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+</html>
